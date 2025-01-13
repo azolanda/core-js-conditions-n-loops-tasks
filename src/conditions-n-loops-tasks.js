@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,11 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b) {
+    return a > c ? a : c;
+  }
+  return b > c ? b : c;
 }
 
 /**
@@ -60,8 +63,12 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -82,8 +89,13 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a > 0 && b > 0 && c > 0) {
+    return (
+      (a === b && a + b > c) || (a === c && a + c > b) || (b === c && b + c > a)
+    );
+  }
+  return false;
 }
 
 /**
@@ -100,8 +112,38 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let roman = '';
+  let number = num;
+  if (number === 0) return roman;
+  if (number / 10 >= 1) {
+    for (let i = 1; i <= number / 10; i += 1) {
+      roman += 'X';
+    }
+    number %= 10;
+  }
+  if (number < 10) {
+    if (number < 4 && number > 0) {
+      for (let i = 1; i <= number; i += 1) {
+        roman += 'I';
+      }
+    }
+    if (number === 4) {
+      roman += 'IV';
+    }
+    if (number >= 5 && number < 9) {
+      roman += 'V';
+      if (number > 5) {
+        for (let i = 6; i <= number; i += 1) {
+          roman += 'I';
+        }
+      }
+    }
+    if (number === 9) {
+      roman += 'IX';
+    }
+  }
+  return roman;
 }
 
 /**
